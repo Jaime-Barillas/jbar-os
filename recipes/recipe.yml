@@ -1,6 +1,7 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
+# TODO: systmed-sysext for the tablet driver?
 name: jbar-os
 description: This is my personal OS image.
 
@@ -24,18 +25,25 @@ modules:
     snippets:
       - "dnf config-manager setopt fedora-nvidia-580.priority=85"
 
+# Does _not_ work.
+#   - type: akmods
+#     base: main
+#     nvidia-driver: nvidia
+#     install: []
+
   - type: dnf
     install:
       packages:
-        - akmods
-        - nvidia-driver
-        - nvidia-settings
-        - nvidia-modprobe
+        # - akmods
+        # - nvidia-driver
+        # - nvidia-settings
+        # - nvidia-modprobe
         - https://macdriver.oss-us-west-1.aliyuncs.com/vktablet-3.5.10-2.x86_64.1.rpm # Pen tablet driver.
         - keyd
         - vivaldi-stable
-      exclude:
-        - akmod-nvidia # Needs to be layered. TODO: Use ublue's akmods?
+        - helix
+      # exclude:
+        # - akmod-nvidia
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
