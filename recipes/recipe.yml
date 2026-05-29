@@ -2,15 +2,11 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
 name: jbar-os
-# description will be included in the image's metadata
 description: This is my personal OS image.
 
-# the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 42 # latest is also supported if you want new updates ASAP
+image-version: stable
 
-# module configuration, executed in order
-# you can include multiple instances of the same module
 modules:
   - type: files
     files:
@@ -19,18 +15,37 @@ modules:
 
   - type: dnf
     repos:
+      files:
+        - https://negativo17.org/repos/fedora-nvidia-580.repo
+        - https://repo.vivaldi.com/archive/vivaldi-fedora.repo
       copr:
-        - atim/starship
+        - alternateved/keyd
+  - type: script
+    snippets:
+      - "dnf config-manager setopt fedora-nvidia-580.priority=85"
+
+  - type: dnf
     install:
       packages:
-        - micro
-        - starship
+        - akmods
+        - nvidia-driver
+        - nvidia-settings
+        - nvidia-modprobe
+        - https://macdriver.oss-us-west-1.aliyuncs.com/vktablet-3.5.10-2.x86_64.1.rpm # Pen tablet driver.
+        - keyd
+        - vivaldi-stable
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
         # "firefox" is the main package, "firefox-langpacks" is a dependency
         - firefox
         - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+        - gnome-tweaks
+
+  - type: systemd
+    system:
+      enabled:
+        - keyd.service
 
   - type: default-flatpaks
     configurations:
@@ -38,8 +53,22 @@ modules:
         scope: system
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
-          - org.mozilla.firefox
-          - org.gnome.Loupe
+          - com.github.tchx84.Flatseal
+          - it.mijorus.gearlever
+          - io.github.flattool.Ignition
+          - page.tesk.Refine
+          - org.keepassxc.KeePassXC
+          - org.mozilla.thunderbird_esr
       - scope: user # Also add Flathub user repo, but no user packages
+        install:
+          - com.super_productivity.SuperProductivity
+          - com.valvesoftware.Steam
+          - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+          - io.bassi.Amberol
+          - io.mgba.mGBA
+          - net.kuribo64.melonDS
+          - org.azahar_emu.Azahar
+          - org.openttd.OpenTTD
+          - org.taisei_project.Taisei
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
