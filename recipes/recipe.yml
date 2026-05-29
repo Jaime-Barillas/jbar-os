@@ -72,6 +72,7 @@ modules:
         install: # system flatpaks we want all users to have and not remove
           - com.github.tchx84.Flatseal
           - it.mijorus.gearlever
+          - net.nokyan.Resources
           - io.github.flattool.Ignition
           - page.tesk.Refine
           - org.keepassxc.KeePassXC
