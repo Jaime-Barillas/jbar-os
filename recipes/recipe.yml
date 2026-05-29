@@ -34,6 +34,8 @@ modules:
         - https://macdriver.oss-us-west-1.aliyuncs.com/vktablet-3.5.10-2.x86_64.1.rpm # Pen tablet driver.
         - keyd
         - vivaldi-stable
+      exclude:
+        - akmod-nvidia # Needs to be layered. TODO: Use ublue's akmods?
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
@@ -59,7 +61,7 @@ modules:
           - page.tesk.Refine
           - org.keepassxc.KeePassXC
           - org.mozilla.thunderbird_esr
-      - scope: user # Also add Flathub user repo, but no user packages
+      - scope: user # Also add Flathub user repo
         install:
           - com.super_productivity.SuperProductivity
           - com.valvesoftware.Steam
