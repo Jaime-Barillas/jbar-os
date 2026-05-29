@@ -14,6 +14,13 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
+  - type: script
+    snippets:
+      - "sudo chown -R root /usr/share/fonts/MapleMono"
+      - "sudo chmod 644 /usr/share/fonts/MapleMono/*"
+      - "sudo restorecon -vFr /usr/share/fonts/MapleMono"
+      - "sudo fc-cache -v"
+
   - type: dnf
     repos:
       files:
