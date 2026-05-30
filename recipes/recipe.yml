@@ -31,12 +31,24 @@ modules:
   - type: script
     snippets:
       - "dnf config-manager setopt fedora-nvidia-580.priority=85"
+      - "dnf -y remove --no-autoremove kernel kernel-core kernel-debug-devel kernel-devel-matched kernel-headers kernel-modules kernel-modules-core kernel-modules-extra kernel-tools kernel-tools-libs"
+      - "dnf -y install kernel kernel-core kernel-debug-devel kernel-devel-matched kernel-headers kernel-modules kernel-modules-core kernel-modules-extra kernel-tools kernel-tools-libs"
+      - "dnf -y upgrade"
 
-# Does _not_ work.
-#   - type: akmods
-#     base: main
-#     nvidia-driver: nvidia
-#     install: []
+  - type: akmods
+    base: main
+    nvidia-driver: nvidia
+    install: []
+  # - type: containerfile
+  #   snippets:
+  #     - "RUN --mount=type=bind,from=ghcr.io/ublue-os/akmods-nvidia-lts:main-44 / /tmp/akmods-nvidia-lts
+  #       cd /tmp/akmods-nvidia-lts &&
+  #       dnf -y install
+  #         rpms/ublue-os/ublue-os-nvidia-addons*.rpm
+  #         rpms/kmods/kmod-nvidia*.rpm
+  #         rpms/nvidia/nvidia-driver*.rpm
+  #         rpms/nvidia/nvidia-settings*.rpm
+  #         rpms/nvidia/nvidia-modprobe*.rpm"
 
   - type: dnf
     install:
@@ -49,6 +61,7 @@ modules:
         - keyd
         - vivaldi-stable
         - helix
+        - chezmoi
       # exclude:
         # - akmod-nvidia
     remove:

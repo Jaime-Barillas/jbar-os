@@ -5,3 +5,4 @@ cosign.private
 files/system/usr/share/fonts/MapleMono/MapleMono-TTF-AutoHint-patch.zip
 files/system/usr/share/fonts/MapleMono/config.json
 files/system/usr/share/fonts/MapleMono/patch-in-browser.json
+/.bluebuild-scripts_*
