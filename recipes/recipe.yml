@@ -1,12 +1,10 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# image will be published to ghcr.io/<user>/<name>
-# TODO: systmed-sysext for the tablet driver?
 name: jbar-os
 description: This is my personal OS image.
 
-base-image: ghcr.io/ublue-os/bluefin
-image-version: stable
+base-image: ghcr.io/ublue-os/silverblue-main
+image-version: 44
 
 modules:
   - type: files
@@ -24,46 +22,43 @@ modules:
   - type: dnf
     repos:
       files:
-        - https://negativo17.org/repos/fedora-nvidia-580.repo
         - https://repo.vivaldi.com/archive/vivaldi-fedora.repo
       copr:
         - alternateved/keyd
   - type: script
     snippets:
-      - "dnf config-manager setopt fedora-nvidia-580.priority=85"
-      - "dnf -y remove --no-autoremove kernel kernel-core kernel-debug-devel kernel-devel-matched kernel-headers kernel-modules kernel-modules-core kernel-modules-extra kernel-tools kernel-tools-libs"
-      - "dnf -y install kernel kernel-core kernel-debug-devel kernel-devel-matched kernel-headers kernel-modules kernel-modules-core kernel-modules-extra kernel-tools kernel-tools-libs"
-      - "dnf -y upgrade"
+      # Remove pre-installed kmods first
+      # - "dnf -y remove kmod-v4l2loopback"
+      # Update the kernel - The akmods module seems to require the latest kernel for nvidia drivers
+      - "dnf -y distro-sync --allowerasing"
+      # Matches dnf list --installed | grep kernel
+      # - "dnf -y upgrade --allowerasing
+      #      kernel
+      #      kernel-core
+      #      kernel-debug-devel
+      #      kernel-devel
+      #      kernel-devel-matched
+      #      kernel-headers
+      #      kernel-modules
+      #      kernel-modules-core
+      #      kernel-modules-extra
+      #      kernel-srpm-macros
+      #      kernel-tools
+      #      kernel-tools-libs"
 
   - type: akmods
     base: main
     nvidia-driver: nvidia
     install: []
-  # - type: containerfile
-  #   snippets:
-  #     - "RUN --mount=type=bind,from=ghcr.io/ublue-os/akmods-nvidia-lts:main-44 / /tmp/akmods-nvidia-lts
-  #       cd /tmp/akmods-nvidia-lts &&
-  #       dnf -y install
-  #         rpms/ublue-os/ublue-os-nvidia-addons*.rpm
-  #         rpms/kmods/kmod-nvidia*.rpm
-  #         rpms/nvidia/nvidia-driver*.rpm
-  #         rpms/nvidia/nvidia-settings*.rpm
-  #         rpms/nvidia/nvidia-modprobe*.rpm"
 
   - type: dnf
     install:
       packages:
-        - akmods
-        # - nvidia-driver
-        # - nvidia-settings
-        # - nvidia-modprobe
         - https://macdriver.oss-us-west-1.aliyuncs.com/vktablet-3.5.10-2.x86_64.1.rpm # Pen tablet driver.
         - keyd
         - vivaldi-stable
         - helix
         - chezmoi
-      # exclude:
-        # - akmod-nvidia
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
