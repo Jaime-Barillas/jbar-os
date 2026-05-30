@@ -56,6 +56,8 @@ modules:
       packages:
         - https://macdriver.oss-us-west-1.aliyuncs.com/vktablet-3.5.10-2.x86_64.1.rpm # Pen tablet driver.
         - keyd
+        - gnome-shell-extension-appindicator
+        - gnome-shell-extension-caffeine
         - vivaldi-stable
         - helix
         - chezmoi
