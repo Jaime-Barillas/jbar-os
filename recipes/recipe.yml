@@ -25,13 +25,13 @@ modules:
         - https://repo.vivaldi.com/archive/vivaldi-fedora.repo
       copr:
         - alternateved/keyd
-  - type: script
-    snippets:
-      # Remove pre-installed kmods first
+  # - type: script
+    # snippets:
+      ## Remove pre-installed kmods first
       # - "dnf -y remove kmod-v4l2loopback"
-      # Update the kernel - The akmods module seems to require the latest kernel for nvidia drivers
-      - "dnf -y distro-sync --allowerasing"
-      # Matches dnf list --installed | grep kernel
+      ## Update the kernel - The akmods module seems to require the latest kernel for nvidia drivers
+      # - "dnf -y distro-sync --allowerasing"
+      ## Or manually: Matches dnf list --installed | grep kernel
       # - "dnf -y upgrade --allowerasing
       #      kernel
       #      kernel-core
@@ -74,7 +74,7 @@ modules:
 
   - type: default-flatpaks
     configurations:
-      - notify: true # Send notification after install/uninstall is finished (true/false)
+      - notify: false # Send notification after install/uninstall is finished (true/false)
         scope: system
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
