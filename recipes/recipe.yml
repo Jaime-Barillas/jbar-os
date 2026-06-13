@@ -23,7 +23,6 @@ modules:
     repos:
       files:
         - https://repo.vivaldi.com/archive/vivaldi-fedora.repo
-        - megasync.repo
       copr:
         - alternateved/keyd
   # - type: script
@@ -59,7 +58,6 @@ modules:
         - keyd
         - gnome-shell-extension-appindicator
         - gnome-shell-extension-caffeine
-        - megasync
         - vivaldi-stable
         - helix
         - chezmoi
