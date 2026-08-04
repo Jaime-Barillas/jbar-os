@@ -21,8 +21,9 @@ modules:
 
   - type: dnf
     repos:
-      files:
-        - https://repo.vivaldi.com/archive/vivaldi-fedora.repo
+      # Vivaldi no longer supports ublock origin :(
+      # files:
+      #   - https://repo.vivaldi.com/archive/vivaldi-fedora.repo
       copr:
         - alternateved/keyd
   # - type: script
