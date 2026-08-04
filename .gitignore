@@ -1,6 +1,8 @@
 cosign.key
 cosign.private
 /Containerfile
+*.iso
+*.iso-CHECKSUM
 
 files/system/usr/share/fonts/MapleMono/MapleMono-TTF-AutoHint-patch.zip
 files/system/usr/share/fonts/MapleMono/config.json
