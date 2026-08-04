@@ -59,7 +59,6 @@ modules:
         - keyd
         - gnome-shell-extension-appindicator
         - gnome-shell-extension-caffeine
-        - vivaldi-stable
         - helix
         - chezmoi
     remove:
@@ -96,6 +95,8 @@ modules:
           - com.valvesoftware.Steam
           - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
           - io.bassi.Amberol
+          - io.github.ungoogled_software.ungoogled_chromium
+          - io.github.ungoogled_software.ungoogled_chromium.Codecs
           - io.mgba.mGBA
           - net.kuribo64.melonDS
           - org.azahar_emu.Azahar
