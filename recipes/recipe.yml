@@ -77,7 +77,7 @@ modules:
 
   - type: default-flatpaks
     configurations:
-      - notify: false # Send notification after install/uninstall is finished (true/false)
+      - notify: false
         scope: system
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
@@ -89,7 +89,8 @@ modules:
           - page.tesk.Refine
           - org.keepassxc.KeePassXC
           - org.mozilla.thunderbird_esr
-      - scope: user # Also add Flathub user repo
+      - notify: false
+        scope: user
         install:
           - com.super_productivity.SuperProductivity
           - com.valvesoftware.Steam
