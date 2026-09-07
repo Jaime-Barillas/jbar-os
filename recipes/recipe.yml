@@ -26,12 +26,12 @@ modules:
       #   - https://repo.vivaldi.com/archive/vivaldi-fedora.repo
       copr:
         - alternateved/keyd
-  # - type: script
-    # snippets:
+  - type: script
+    snippets:
       ## Remove pre-installed kmods first
       # - "dnf -y remove kmod-v4l2loopback"
-      ## Update the kernel - The akmods module seems to require the latest kernel for nvidia drivers
-      # - "dnf -y distro-sync --allowerasing"
+      # Update the kernel - The akmods module seems to require the latest kernel for nvidia drivers
+      - "dnf -y distro-sync --allowerasing"
       ## Or manually: Matches dnf list --installed | grep kernel
       # - "dnf -y upgrade --allowerasing
       #      kernel
@@ -62,6 +62,7 @@ modules:
         - helix
         - chezmoi
         - waydroid
+        - lzip # For waydroid-script
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
