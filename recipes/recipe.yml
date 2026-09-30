@@ -59,6 +59,7 @@ modules:
         - keyd
         - gnome-shell-extension-appindicator
         - gnome-shell-extension-caffeine
+        - "@virtualization"
         - helix
         - chezmoi
         - waydroid
